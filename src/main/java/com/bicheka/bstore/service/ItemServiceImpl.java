@@ -30,16 +30,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item addItem(Item item){
-        return itemRepository.save(item);
-    }
-
-    @Override
-    public void deleteItem(long id){
-        itemRepository.deleteById(id);
-    }
-
-    @Override
     public Item reduceAmountInStock(long id, long amount){
         long itemAmount = getItem(id).getAmountInStock();
         getItem(id).setAmountInStock(itemAmount-amount);
