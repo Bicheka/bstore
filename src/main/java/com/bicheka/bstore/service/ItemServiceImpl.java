@@ -20,6 +20,11 @@ public class ItemServiceImpl implements ItemService {
     ItemRepository itemRepository;
 
     @Override
+    public List<Item> getAllItems(){
+        return itemRepository.findAll();
+    }
+
+    @Override
     public Item getItem(long id) {
         Optional<Item> user = itemRepository.findById(id);
         return unwrapItem(user, id);
@@ -27,6 +32,16 @@ public class ItemServiceImpl implements ItemService {
     static Item unwrapItem(Optional<Item> entity, Long id) {
         if (entity.isPresent()) return entity.get();
         else throw new ItemNotFoundException(id);
+    }
+
+    @Override
+    public Item addItem(Item item){
+        return itemRepository.save(item);
+    }
+
+    @Override
+    public void deleteItem(long id){
+        itemRepository.deleteById(id);
     }
 
     @Override

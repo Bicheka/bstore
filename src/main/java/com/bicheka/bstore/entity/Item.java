@@ -26,10 +26,6 @@ public class Item {
     private long id;
 
     @NonNull
-    @Column(name = "seller_id", nullable = false)
-    private long sellerId;
-
-    @NonNull
     @Column(name = "itemName", nullable = false)
     private String itemName;
 

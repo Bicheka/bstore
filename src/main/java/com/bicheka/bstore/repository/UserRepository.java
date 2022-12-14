@@ -2,8 +2,8 @@ package com.bicheka.bstore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bicheka.bstore.entity.Seller;
+import com.bicheka.bstore.entity.User;
 
-public interface SellerRepository extends JpaRepository<Seller,Long>{
+public interface UserRepository extends JpaRepository<User, Long> {
     
 }
