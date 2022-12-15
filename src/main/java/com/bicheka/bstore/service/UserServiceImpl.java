@@ -29,9 +29,8 @@ public class UserServiceImpl implements UserService{
         Optional<User> user = userRepository.findById(id);
         
         return unwrapUser(user, id);
-
-       //return userRepository.getReferenceById(id);
     }
+
     static User unwrapUser(Optional<User> entity, Long id) {
         if (entity.isPresent()) return entity.get();
         else throw new UserNotFoundException(id);
@@ -62,17 +61,18 @@ public class UserServiceImpl implements UserService{
             cart.push(i);
         }
         cart.push(item);
+        getUser(userId).setCart(cart);
         return cart;
     }
     
     @Override
     public void removeItemFromCart(long userId, long itemId){
-        Stack<Item> list = getUser(userId).getCart();
-        for (Item i : list) {
+        Stack<Item> cart = getUser(userId).getCart();
+        for (Item i : cart) {
             if(i.getId()==itemId);
-            list.remove(i);
+            cart.remove(i);
         }
-        getUser(userId).setCart(list);
+        getUser(userId).setCart(cart);
     }
 
     @Override

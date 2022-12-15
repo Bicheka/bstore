@@ -2,6 +2,7 @@ package com.bicheka.bstore.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/user")
 public class UserController {
     
+    @Autowired
     UserService userService;
 
     @GetMapping("/{user_id}")
@@ -36,7 +38,7 @@ public class UserController {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/delete/{user_id}")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable Long user_id) {
         userService.deleteUser(user_id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -52,7 +54,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getShoppingCart(user_id), HttpStatus.OK);
     }
 
-    @PutMapping("/add_to_cart/{user_id}")
+    @PostMapping("/add_to_cart/{user_id}")
     public ResponseEntity<List<Item>> addItemToCart(@PathVariable long user_id, @RequestBody Item item) {
         return new ResponseEntity<>(userService.addItemToCart(user_id, item), HttpStatus.CREATED);
     }
