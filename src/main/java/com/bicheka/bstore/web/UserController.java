@@ -1,6 +1,5 @@
 package com.bicheka.bstore.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -27,9 +26,9 @@ public class UserController {
     
     UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id){
-        return new ResponseEntity<>(userService.getUser(id), HttpStatus.OK);
+    @GetMapping("/{user_id}")
+    public ResponseEntity<User> getUser(@PathVariable Long user_id){
+        return new ResponseEntity<>(userService.getUser(user_id), HttpStatus.OK);
     }
 
     @PostMapping("/add_user")
@@ -37,9 +36,9 @@ public class UserController {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/{user_id}")
+    public ResponseEntity<HttpStatus> deleteStudent(@PathVariable Long user_id) {
+        userService.deleteUser(user_id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -48,30 +47,30 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/shoppingcart/{id}")
-    public ResponseEntity<ArrayList<Item>>getShoppingCart(@PathVariable long userId){
-        return new ResponseEntity<>(userService.getShoppingCart(userId), HttpStatus.OK);
+    @GetMapping("/shoppingcart/{user_id}")
+    public ResponseEntity<List<Item>>getShoppingCart(@PathVariable long user_id){
+        return new ResponseEntity<>(userService.getShoppingCart(user_id), HttpStatus.OK);
     }
 
-    @PostMapping("/add_to_cart/{userid}")
-    public ResponseEntity<ArrayList<Item>> addItemToCart(@PathVariable long userid, @RequestBody Item item) {
-        return new ResponseEntity<>(userService.addItemToCart(userid, item), HttpStatus.CREATED);
+    @PutMapping("/add_to_cart/{user_id}")
+    public ResponseEntity<List<Item>> addItemToCart(@PathVariable long user_id, @RequestBody Item item) {
+        return new ResponseEntity<>(userService.addItemToCart(user_id, item), HttpStatus.CREATED);
     }
 
-    @PutMapping("/remove_from_cart/{id}-{index}")
-    public ResponseEntity<HttpStatus> removeFromShoppingCart(@PathVariable long userId, @PathVariable long itemId) {
-        userService.removeItemFromCart(userId, itemId);
+    @PutMapping("/remove_from_cart/{user_id}-{item_id}")
+    public ResponseEntity<HttpStatus> removeFromShoppingCart(@PathVariable long user_id, @PathVariable long item_id) {
+        userService.removeItemFromCart(user_id, item_id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/clear_cart/{id}")
-    public ResponseEntity<HttpStatus> cleanShoppingCart(@PathVariable long userId) {
-        userService.clearShoppingCart(userId);
+    @PutMapping("/clear_cart/{user_id}")
+    public ResponseEntity<HttpStatus> cleanShoppingCart(@PathVariable long user_id) {
+        userService.clearShoppingCart(user_id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/purchase_cart_items/{id}")
-    public ResponseEntity<Double> purchaseShoppingCartItems(@PathVariable long userId){
-        return new ResponseEntity<>(userService.purchaseShoppingCartItems(userId), HttpStatus.CREATED);
+    @PutMapping("/purchase_cart_items/{user_id}")
+    public ResponseEntity<Double> purchaseShoppingCartItems(@PathVariable long user_id){
+        return new ResponseEntity<>(userService.purchaseShoppingCartItems(user_id), HttpStatus.CREATED);
     }
 }

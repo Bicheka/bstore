@@ -1,8 +1,8 @@
 package com.bicheka.bstore.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,15 +53,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ArrayList<Item> addItemToCart(long userId, Item item){
-        ArrayList<Item> list = getUser(userId).getCart();
-        list.add(item);
-        getUser(userId).setCart(list);
-        return list;
+    public Stack<Item> addItemToCart(long userId, Item item){
+
+        Stack<Item> cart = new Stack<>();
+        List<Item> list = getUser(userId).getCart();
+
+        for(Item i : list){
+            cart.push(i);
+        }
+        cart.push(item);
+        return cart;
     }
+    
     @Override
     public void removeItemFromCart(long userId, long itemId){
-        ArrayList<Item> list = getUser(userId).getCart();
+        Stack<Item> list = getUser(userId).getCart();
         for (Item i : list) {
             if(i.getId()==itemId);
             list.remove(i);
@@ -70,13 +76,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ArrayList<Item> getShoppingCart(long id){
-        return getUser(id).getCart();
+    public Stack<Item> getShoppingCart(long userId){
+        return getUser(userId).getCart();
     }
     
     @Override
     public double purchaseShoppingCartItems(long userId){
-        ArrayList<Item> list = getUser(userId).getCart();
+        Stack<Item> list = getUser(userId).getCart();
 
         double total = 0;
         for (Item i : list) {
@@ -95,7 +101,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void clearShoppingCart(long userId){
-        ArrayList<Item> list = getUser(userId).getCart();
+        Stack<Item> list = getUser(userId).getCart();
         for (Item i : list) {
             list.remove(i);
         }

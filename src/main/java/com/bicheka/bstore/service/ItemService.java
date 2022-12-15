@@ -5,8 +5,6 @@ import java.util.Stack;
 
 import com.bicheka.bstore.entity.Item;
 
-
-
 public interface ItemService {
     List<Item> getAllItems();
     Item getItem(long id);

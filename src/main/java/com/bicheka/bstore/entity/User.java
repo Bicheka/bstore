@@ -1,6 +1,6 @@
 package com.bicheka.bstore.entity;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +42,7 @@ public class User {
 
     @NonNull
     @Column(name = "cart", nullable = false)
-    private ArrayList<Item> cart;
+    private Stack<Item> cart;
 
 
 }
